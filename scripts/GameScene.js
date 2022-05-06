@@ -36,7 +36,6 @@ class GameScene extends Phaser.Scene {
 
         //// SHIP ////
         ship = this.physics.add.image(100, 300, 'ship');
-        ship.setScale(0.5);
         ship.body.setMaxSpeed(700);
         ship.body.collideWorldBounds=true;
         
@@ -60,11 +59,11 @@ class GameScene extends Phaser.Scene {
         this.physics.add.collider(ship, asteroid3, this.hitAsteroid, null, this);
         this.physics.add.collider(ship, asteroid4, this.hitAsteroid, null, this);
         this.physics.add.collider(ship, asteroid5, this.hitAsteroid, null, this);
-        // this.physics.add.collider(ship, asteroid6, this.hitAsteroid, null, this);
-        // this.physics.add.collider(ship, asteroid7, this.hitAsteroid, null, this);
-        // this.physics.add.collider(ship, asteroid8, this.hitAsteroid, null, this);
-        // this.physics.add.collider(ship, asteroid9, this.hitAsteroid, null, this);
-        // this.physics.add.collider(ship, asteroid10, this.hitAsteroid, null, this);
+        this.physics.add.collider(ship, asteroid6, this.hitAsteroid, null, this);
+        this.physics.add.collider(ship, asteroid7, this.hitAsteroid, null, this);
+        this.physics.add.collider(ship, asteroid8, this.hitAsteroid, null, this);
+        this.physics.add.collider(ship, asteroid9, this.hitAsteroid, null, this);
+        this.physics.add.collider(ship, asteroid10, this.hitAsteroid, null, this);
 
         this.cursors = this.input.keyboard.createCursorKeys();
         scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#ffffff' });
@@ -78,11 +77,11 @@ class GameScene extends Phaser.Scene {
         this.move(asteroid3);
         this.move(asteroid4);
         this.move(asteroid5);
-        // this.moveAsteroid(asteroid6);
-        // this.moveAsteroid(asteroid7);
-        // this.moveAsteroid(asteroid8);
-        // this.moveAsteroid(asteroid9);
-        // this.moveAsteroid(asteroid10);
+        this.move(asteroid6);
+        this.move(asteroid7);
+        this.move(asteroid8);
+        this.move(asteroid9);
+        this.move(asteroid10);
         this.physics.world.wrap(ship, 100);
 
         //// CONTROLS ////
