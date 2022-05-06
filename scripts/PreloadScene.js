@@ -3,15 +3,12 @@ class PreloadScene extends Phaser.Scene {
         super({key: 'PreloadScene'})
     }
 
-
     preload() {
         this.load.image('logo', './assets/logo.png')
     }
 
     create() {
-
         const logo = this.add.image(400, 150, 'logo');
-
         this.tweens.add({
             targets: logo,
             y: 450,
@@ -21,7 +18,7 @@ class PreloadScene extends Phaser.Scene {
             loop: -1
         });
         
-        this.input.on('pointerdown', () => this.scene.start('GameoverScene'))
+        this.input.on('pointerdown', () => this.scene.start('GameScene'))
 
         this.title = this.add.text(this.game.config.width * 0.5, 128, "ASTEROIDS", {
             fontFamily: 'monospace',
@@ -41,8 +38,5 @@ class PreloadScene extends Phaser.Scene {
             align: 'center'
         });
         this.title.setOrigin(0.5, -8);
-
-
     }
 }
-
