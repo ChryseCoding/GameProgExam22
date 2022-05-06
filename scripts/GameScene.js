@@ -6,30 +6,61 @@ class GameScene extends Phaser.Scene {
         this.gameOver = false
     }
 
+    
+
     preload() {
         this.load.image('logo', './assets/logo.png')
         this.load.image('obs1', './assets/asteroid1.png')
         this.load.image('obs2', './assets/asteroid2.png')
         this.load.image('obs3', './assets/asteroid3.png')
-        this.load.spritesheet('ship', './assets/ship.png', { frameWidth:32, frameHeight:48})
+        this.load.image('ship', './assets/ship.png')
 
     }
 
     create() {
-        const logo = this.add.image(400, 150, 'logo');
+        sprite = this.physics.add.image(400, 300, 'ship');
 
-        this.tweens.add({
-            targets: logo,
-            y: 450,
-            duration: 2000,
-            ease: 'Power2',
-            yoyo: true,
-            loop: -1
-        });
+        sprite.body.setMaxSpeed(200);
+
+        circle = this.add.circle(sprite.x, sprite.y, 0.5 * sprite.body.maxSpeed, 0xffffff, 0.2);
+
+        console.log(circle);
+
+        cursors = this.input.keyboard.createCursorKeys();
+
+        text = this.add.text(10, 10, '', { font: '16px Courier', fill: '#00ff00' });
     }
+    
 
-    update() {
-        
+    update() 
+    {
+        if (cursors.up.isDown)
+        {
+            this.physics.velocityFromRotation(sprite.rotation, sprite.body.maxSpeed, sprite.body.acceleration);
+        }
+        else
+        {
+            sprite.setAcceleration(0);
+        }
+
+        if (cursors.left.isDown)
+        {
+            sprite.setAngularVelocity(-300);
+        }
+        else if (cursors.right.isDown)
+        {
+            sprite.setAngularVelocity(300);
+        }
+        else
+        {
+            sprite.setAngularVelocity(0);
+        }
+
+        text.setText('Speed: ' + sprite.body.speed);
+
+        this.physics.world.wrap(sprite, 100);
+
+        circle.setPosition(sprite.x, sprite.y);
     }
 }
 
