@@ -14,7 +14,6 @@ let asteroid8;
 let asteroid9;
 let asteroid10;
 
-
 class GameScene extends Phaser.Scene {
     constructor() {
         super({key: 'GameScene'})
@@ -23,10 +22,11 @@ class GameScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('space', './assets/space.jpg')
-        this.load.image('ship', './assets/ship.png')
-        this.load.image('gem', './assets/gem.png')
-        this.load.image('asteroid', './assets/asteroid.png')
+        this.load.image('space', './assets/space.jpg');
+        this.load.image('ship', './assets/ship.png');
+        this.load.image('gem', './assets/gem.png');
+        this.load.image('asteroid', './assets/asteroid.png');
+        this.load.bitmapFont('nasa', './assets/font.png', './assets/font.fnt');
     }
 
     create() {
@@ -49,6 +49,7 @@ class GameScene extends Phaser.Scene {
         asteroid3 = this.physics.add.image(0, 0, 'asteroid');
         asteroid4 = this.physics.add.image(0, 0, 'asteroid');
         asteroid5 = this.physics.add.image(0, 0, 'asteroid');
+        asteroid6 = this.physics.add.image(0, 0, 'asteroid');
         asteroid7 = this.physics.add.image(0, 0, 'asteroid');
         asteroid8 = this.physics.add.image(0, 0, 'asteroid');
         asteroid9 = this.physics.add.image(0, 0, 'asteroid');
@@ -59,14 +60,9 @@ class GameScene extends Phaser.Scene {
         this.physics.add.collider(ship, asteroid3, this.hitAsteroid, null, this);
         this.physics.add.collider(ship, asteroid4, this.hitAsteroid, null, this);
         this.physics.add.collider(ship, asteroid5, this.hitAsteroid, null, this);
-        this.physics.add.collider(ship, asteroid6, this.hitAsteroid, null, this);
-        this.physics.add.collider(ship, asteroid7, this.hitAsteroid, null, this);
-        this.physics.add.collider(ship, asteroid8, this.hitAsteroid, null, this);
-        this.physics.add.collider(ship, asteroid9, this.hitAsteroid, null, this);
-        this.physics.add.collider(ship, asteroid10, this.hitAsteroid, null, this);
 
         this.cursors = this.input.keyboard.createCursorKeys();
-        scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#ffffff' });
+        scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', font: "nasa", fill: '#ffffff' });
     }
 
     update() {
@@ -82,7 +78,6 @@ class GameScene extends Phaser.Scene {
         this.move(asteroid8);
         this.move(asteroid9);
         this.move(asteroid10);
-        this.physics.world.wrap(ship, 100);
 
         //// CONTROLS ////
         if (this.cursors.left.isDown) {
@@ -104,8 +99,8 @@ class GameScene extends Phaser.Scene {
             ship.setVelocityY(0);
         }
     }
+
     move(object) {
-        console.log("move");
         object.angle += Math.random();
         object.x -= 5;
         if (object.x <= 0){
@@ -114,10 +109,9 @@ class GameScene extends Phaser.Scene {
     }
 
     spawn(object) {
-        console.log("spawn");
         object.x = config.width + config.height*Math.random();
         object.y = Phaser.Math.Between(0, config.height)
-        object.setScale(Math.random())
+        object.setScale(Math.random() * (1 - 0) + 0.5)
         if (object.x <= 0){
             this.spawn(object);
         }
